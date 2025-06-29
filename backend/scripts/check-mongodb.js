@@ -31,17 +31,7 @@ const checkMongoDB = async () => {
       console.log('   2. Installer avec les options par défaut');
       console.log('   3. MongoDB démarre automatiquement');
       console.log('');
-      console.log('🍎 macOS:');
-      console.log('   brew tap mongodb/brew');
-      console.log('   brew install mongodb-community');
-      console.log('   brew services start mongodb-community');
-      console.log('');
-      console.log('🐧 Linux (Ubuntu):');
-      console.log('   wget -qO - https://www.mongodb.org/static/pgp/server-7.0.asc | sudo apt-key add -');
-      console.log('   echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/7.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-7.0.list');
-      console.log('   sudo apt-get update');
-      console.log('   sudo apt-get install -y mongodb-org');
-      console.log('   sudo systemctl start mongod');
+     
     }
     
     process.exit(1);
