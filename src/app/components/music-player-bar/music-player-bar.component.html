@@ -1,0 +1,71 @@
+<div class="player-bar" *ngIf="currentTrack" [@slideUp]>
+  <!-- Track Info Section -->
+  <div class="track-info-section">
+    <div class="album-art">
+      🎵
+    </div>
+    <div class="track-details">
+      <div class="track-title">{{ currentTrack.title }}</div>
+      <div class="track-artist">{{ currentTrack.artist }}</div>
+    </div>
+  </div>
+
+  <!-- Player Controls Section -->
+  <div class="player-controls-section">
+    <div class="control-buttons">
+      <button class="control-btn" (click)="previous()" title="Précédent">
+        ⏮️
+      </button>
+      
+      <button class="play-pause-btn" (click)="togglePlayPause()" title="{{ isPlaying ? 'Pause' : 'Play' }}">
+        {{ isPlaying ? '⏸️' : '▶️' }}
+      </button>
+      
+      <button class="control-btn" (click)="next()" title="Suivant">
+        ⏭️
+      </button>
+    </div>
+
+    <div class="progress-section">
+      <span class="time-current">{{ formatTime(currentTime) }}</span>
+      <div class="progress-container">
+        <input
+          type="range"
+          class="progress-bar"
+          min="0"
+          max="100"
+          [value]="getProgressPercentage()"
+          (input)="onSeek($event)"
+          title="Position: {{ formatTime(currentTime) }} / {{ formatTime(duration) }}"
+        >
+      </div>
+      <span class="time-duration">{{ formatTime(duration) }}</span>
+    </div>
+  </div>
+
+  <!-- Volume & Actions Section -->
+  <div class="volume-actions-section">
+    <div class="volume-control" [class.active]="showVolumeSlider">
+      <button class="volume-btn" (click)="toggleVolumeSlider()" title="Volume: {{ Math.round(getVolumePercentage()) }}%">
+        {{ getVolumeIcon() }}
+      </button>
+      
+      <div class="volume-slider-container" [class.show]="showVolumeSlider">
+        <input
+          type="range"
+          class="volume-slider"
+          min="0"
+          max="100"
+          [value]="getVolumePercentage()"
+          (input)="onVolumeChange($event)"
+          title="Volume: {{ Math.round(getVolumePercentage()) }}%"
+        >
+        <span class="volume-percentage">{{ Math.round(getVolumePercentage()) }}%</span>
+      </div>
+    </div>
+
+    <button class="action-btn" (click)="stop()" title="Stop">
+      ⏹️
+    </button>
+  </div>
+</div>

@@ -1,0 +1,428 @@
+.player-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 90px;
+  background: var(--spotify-medium-gray);
+  border-top: 1px solid var(--spotify-lighter-gray);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spotify-space-md);
+  z-index: 1000;
+  box-shadow: var(--spotify-shadow-xl);
+}
+
+/* Track Info Section */
+.track-info-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spotify-space-md);
+  flex: 0 0 300px;
+  min-width: 0;
+}
+
+.album-art {
+  width: 56px;
+  height: 56px;
+  background: var(--spotify-light-gray);
+  border-radius: var(--spotify-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+  box-shadow: var(--spotify-shadow);
+}
+
+.track-details {
+  min-width: 0;
+  flex: 1;
+}
+
+.track-title {
+  color: var(--spotify-white);
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 2px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.track-title:hover {
+  color: var(--spotify-green);
+}
+
+.track-artist {
+  color: var(--spotify-light-text);
+  font-size: 0.75rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.track-artist:hover {
+  color: var(--spotify-white);
+  text-decoration: underline;
+}
+
+/* Player Controls Section */
+.player-controls-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spotify-space-sm);
+  max-width: 600px;
+  margin: 0 var(--spotify-space-xl);
+}
+
+.control-buttons {
+  display: flex;
+  align-items: center;
+  gap: var(--spotify-space-md);
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  color: var(--spotify-light-text);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: var(--spotify-space-sm);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.control-btn:hover {
+  color: var(--spotify-white);
+  background: var(--spotify-light-gray);
+  transform: scale(1.1);
+}
+
+.control-btn:active {
+  transform: scale(0.95);
+}
+
+.play-pause-btn {
+  background: var(--spotify-white);
+  border: none;
+  color: var(--spotify-black);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--spotify-shadow);
+}
+
+.play-pause-btn:hover {
+  transform: scale(1.06);
+  background: var(--spotify-green-hover);
+  color: var(--spotify-white);
+}
+
+.play-pause-btn:active {
+  transform: scale(0.96);
+}
+
+.progress-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spotify-space-sm);
+  width: 100%;
+}
+
+.time-current,
+.time-duration {
+  color: var(--spotify-light-text);
+  font-size: 0.6875rem;
+  font-family: 'Circular', monospace;
+  min-width: 40px;
+  text-align: center;
+  font-weight: 500;
+}
+
+.progress-container {
+  flex: 1;
+  height: 4px;
+  position: relative;
+  cursor: pointer;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--spotify-lighter-gray);
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  transition: all 0.2s ease;
+}
+
+.progress-bar:hover {
+  background: var(--spotify-light-text);
+}
+
+.progress-bar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--spotify-white);
+  cursor: pointer;
+  box-shadow: var(--spotify-shadow);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.progress-bar:hover::-webkit-slider-thumb {
+  opacity: 1;
+}
+
+.progress-bar::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--spotify-white);
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--spotify-shadow);
+}
+
+/* Volume & Actions Section */
+.volume-actions-section {
+  display: flex;
+  align-items: center;
+  gap: var(--spotify-space-md);
+  flex: 0 0 300px;
+  justify-content: flex-end;
+}
+
+.volume-control {
+  display: flex;
+  align-items: center;
+  gap: var(--spotify-space-sm);
+  position: relative;
+}
+
+.volume-btn {
+  background: none;
+  border: none;
+  color: var(--spotify-light-text);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: var(--spotify-space-sm);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.volume-btn:hover {
+  color: var(--spotify-white);
+  background: var(--spotify-light-gray);
+}
+
+.volume-slider-container {
+  display: flex;
+  align-items: center;
+  gap: var(--spotify-space-sm);
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.volume-slider-container.show {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all;
+}
+
+.volume-slider {
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--spotify-lighter-gray);
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--spotify-white);
+  cursor: pointer;
+  box-shadow: var(--spotify-shadow);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--spotify-white);
+  cursor: pointer;
+  border: none;
+  box-shadow: var(--spotify-shadow);
+}
+
+.volume-percentage {
+  color: var(--spotify-light-text);
+  font-size: 0.6875rem;
+  font-family: 'Circular', monospace;
+  min-width: 35px;
+  font-weight: 500;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  color: var(--spotify-light-text);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: var(--spotify-space-sm);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-btn:hover {
+  color: var(--spotify-white);
+  background: var(--spotify-light-gray);
+}
+
+/* Animations */
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .player-bar {
+    height: 120px;
+    flex-direction: column;
+    padding: var(--spotify-space-sm) var(--spotify-space-md);
+    gap: var(--spotify-space-sm);
+  }
+
+  .track-info-section {
+    flex: none;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .player-controls-section {
+    flex: none;
+    width: 100%;
+    margin: 0;
+    gap: var(--spotify-space-xs);
+  }
+
+  .volume-actions-section {
+    flex: none;
+    width: 100%;
+    justify-content: center;
+    gap: var(--spotify-space-xl);
+  }
+
+  .progress-section {
+    gap: var(--spotify-space-sm);
+  }
+
+  .time-current,
+  .time-duration {
+    font-size: 0.625rem;
+    min-width: 35px;
+  }
+
+  .volume-slider-container.show {
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    background: var(--spotify-black);
+    padding: var(--spotify-space-sm);
+    border-radius: var(--spotify-radius);
+    border: 1px solid var(--spotify-lighter-gray);
+    box-shadow: var(--spotify-shadow-lg);
+  }
+
+  .album-art {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+
+  .track-title {
+    font-size: 0.8125rem;
+  }
+
+  .track-artist {
+    font-size: 0.6875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .player-bar {
+    padding: var(--spotify-space-xs) var(--spotify-space-sm);
+  }
+
+  .control-buttons {
+    gap: var(--spotify-space-sm);
+  }
+
+  .play-pause-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 1.1rem;
+  }
+
+  .control-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.875rem;
+  }
+
+  .track-info-section {
+    gap: var(--spotify-space-sm);
+  }
+
+  .album-art {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,89 @@
+<div class="playlist-detail-container" *ngIf="playlist">
+  <div class="playlist-header">
+    <button class="btn btn-back" (click)="router.navigate(['/playlists'])">
+      ← Retour aux playlists
+    </button>
+    
+    <div class="playlist-info">
+      <h1>{{ playlist.name }}</h1>
+      <p class="description" *ngIf="playlist.description">{{ playlist.description }}</p>
+      <div class="meta">
+        <span class="track-count">{{ playlist.tracks.length }} track(s)</span>
+        <span class="created-date">Créée le {{ playlist.createdAt | date:'short' }}</span>
+      </div>
+    </div>
+    
+    <div class="playlist-actions">
+      <button 
+        class="btn btn-play-all" 
+        (click)="playPlaylist()"
+        [disabled]="playlist.tracks.length === 0"
+      >
+        ▶️ Jouer tout
+      </button>
+      <button class="btn btn-add" (click)="showAddTracks = !showAddTracks">
+        {{ showAddTracks ? 'Annuler' : '+ Ajouter tracks' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Add Tracks Section -->
+  <div class="add-tracks-section" [class.show]="showAddTracks">
+    <div class="add-tracks-card">
+      <h3>Ajouter des tracks à la playlist</h3>
+      <div class="available-tracks" *ngIf="getAvailableTracksNotInPlaylist().length > 0">
+        <div 
+          class="track-item" 
+          *ngFor="let track of getAvailableTracksNotInPlaylist()"
+          (click)="addTrackToPlaylist(track)"
+        >
+          <div class="track-info">
+            <h4>{{ track.title }}</h4>
+            <p>{{ track.artist }}</p>
+          </div>
+          <button class="btn btn-add-track">+ Ajouter</button>
+        </div>
+      </div>
+      <div *ngIf="getAvailableTracksNotInPlaylist().length === 0" class="no-tracks">
+        <p>Toutes les tracks disponibles sont déjà dans cette playlist.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Playlist Tracks -->
+  <div class="playlist-tracks">
+    <h2>Tracks dans la playlist</h2>
+    
+    <div *ngIf="playlist.tracks.length === 0" class="empty-playlist">
+      <h3>Playlist vide</h3>
+      <p>Ajoutez des tracks pour commencer à écouter votre playlist!</p>
+    </div>
+
+    <div class="tracks-list" *ngIf="playlist.tracks.length > 0">
+      <div class="track-card" *ngFor="let track of playlist.tracks; let i = index">
+        <div class="track-number">{{ i + 1 }}</div>
+        
+        <div class="track-info">
+          <h3>{{ track.title }}</h3>
+          <p class="artist">{{ track.artist }}</p>
+          <p class="album" *ngIf="track.album">{{ track.album }}</p>
+          <p class="duration">{{ formatDuration(track.duration) }}</p>
+        </div>
+        
+        <div class="track-actions">
+          <button class="btn btn-play" (click)="playTrack(track)">
+            ▶️ Jouer
+          </button>
+          <button class="btn btn-remove" (click)="removeTrackFromPlaylist(track)">
+            ❌ Retirer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="loading" class="loading">
+  <div class="spinner"></div>
+  <p>Chargement de la playlist...</p>
+</div>

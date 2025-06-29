@@ -1,0 +1,76 @@
+<div class="playlist-list-container">
+  <div class="header">
+    <h2>Mes Playlists</h2>
+    <button class="btn btn-primary" (click)="showCreateForm = !showCreateForm">
+      {{ showCreateForm ? 'Annuler' : 'Créer Playlist' }}
+    </button>
+  </div>
+
+  <!-- Create Playlist Form -->
+  <div class="create-form" [class.show]="showCreateForm">
+    <div class="form-card">
+      <h3>Créer une nouvelle playlist</h3>
+      <form (ngSubmit)="createPlaylist()">
+        <div class="form-group">
+          <label for="name">Nom *</label>
+          <input
+            id="name"
+            type="text"
+            [(ngModel)]="newPlaylist.name"
+            name="name"
+            required
+            placeholder="Nom de la playlist"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            [(ngModel)]="newPlaylist.description"
+            name="description"
+            rows="3"
+            placeholder="Description de la playlist"
+          ></textarea>
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Créer</button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">Réinitialiser</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Chargement des playlists...</p>
+  </div>
+
+  <!-- Playlists Grid -->
+  <div class="playlists-grid" *ngIf="!loading">
+    <div class="playlist-card" *ngFor="let playlist of playlists">
+      <div class="playlist-info">
+        <h3>{{ playlist.name }}</h3>
+        <p class="description" *ngIf="playlist.description">{{ playlist.description }}</p>
+        <p class="track-count">{{ playlist.tracks.length }} track(s)</p>
+        <p class="created-date">Créée le {{ playlist.createdAt | date:'short' }}</p>
+      </div>
+      
+      <div class="playlist-actions">
+        <a [routerLink]="['/playlists', playlist._id]" class="btn btn-view">
+          👁️ Voir
+        </a>
+        <button class="btn btn-danger" (click)="deletePlaylist(playlist._id!)">
+          🗑️ Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && playlists.length === 0" class="empty-state">
+    <h3>Aucune playlist trouvée</h3>
+    <p>Créez votre première playlist pour organiser vos musiques!</p>
+  </div>
+</div>

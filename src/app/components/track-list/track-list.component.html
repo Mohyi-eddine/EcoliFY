@@ -1,0 +1,110 @@
+<div class="track-list-container">
+  <div class="header">
+    <h2>Mes Tracks</h2>
+    <button class="btn btn-primary" (click)="showAddForm = !showAddForm">
+      {{ showAddForm ? 'Annuler' : 'Ajouter Track' }}
+    </button>
+  </div>
+
+  <!-- Add Track Form -->
+  <div class="add-form" [class.show]="showAddForm">
+    <div class="form-card">
+      <h3>Ajouter une nouvelle track</h3>
+      <form (ngSubmit)="addTrack()">
+        <div class="form-group">
+          <label for="title">Titre *</label>
+          <input
+            id="title"
+            type="text"
+            [(ngModel)]="newTrack.title"
+            name="title"
+            required
+            placeholder="Titre de la chanson"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="artist">Artiste *</label>
+          <input
+            id="artist"
+            type="text"
+            [(ngModel)]="newTrack.artist"
+            name="artist"
+            required
+            placeholder="Nom de l'artiste"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="album">Album</label>
+          <input
+            id="album"
+            type="text"
+            [(ngModel)]="newTrack.album"
+            name="album"
+            placeholder="Nom de l'album"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="duration">Durée (secondes)</label>
+          <input
+            id="duration"
+            type="number"
+            [(ngModel)]="newTrack.duration"
+            name="duration"
+            placeholder="Durée en secondes"
+          >
+        </div>
+        
+        <div class="form-group">
+          <label for="audioFile">Fichier Audio *</label>
+          <input
+            id="audioFile"
+            type="file"
+            accept="audio/*"
+            (change)="onFileSelected($event)"
+            required
+          >
+        </div>
+        
+        <div class="form-actions">
+          <button type="submit" class="btn btn-success">Ajouter</button>
+          <button type="button" class="btn btn-secondary" (click)="resetForm()">Réinitialiser</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Chargement des tracks...</p>
+  </div>
+
+  <!-- Tracks Grid -->
+  <div class="tracks-grid" *ngIf="!loading">
+    <div class="track-card" *ngFor="let track of tracks">
+      <div class="track-info">
+        <h3>{{ track.title }}</h3>
+        <p class="artist">{{ track.artist }}</p>
+        <p class="album" *ngIf="track.album">{{ track.album }}</p>
+        <p class="duration">{{ formatDuration(track.duration) }}</p>
+      </div>
+      
+      <div class="track-actions">
+        <button class="btn btn-play" (click)="playTrack(track)">
+          ▶️ Jouer
+        </button>
+        <button class="btn btn-danger" (click)="deleteTrack(track._id!)">
+          🗑️ Supprimer
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && tracks.length === 0" class="empty-state">
+    <h3>Aucune track trouvée</h3>
+    <p>Ajoutez votre première track pour commencer!</p>
+  </div>
+</div>
